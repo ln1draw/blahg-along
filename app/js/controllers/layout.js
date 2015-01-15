@@ -49,6 +49,9 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
   $scope.newPost = {"title": '', "content": '', "tag_ids": []}
 
   $scope.submitNewPost = function(){
-    $scope.posts.push($scope.newPost);
+    var postToPush = {};
+    postToPush.title = $scope.newPost.title;
+    postToPush.content = $scope.newPost.content;
+    $scope.posts.push(postToPush);
   }
 }]);
