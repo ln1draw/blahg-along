@@ -1,6 +1,14 @@
 <div ng-controller="homeController">
-  <label>Hello? Is anybody there?</label>
-  <input type="text" ng-model="hello" placeholder="Maybe a traditional greeting?">
-  <hr>
-  <h1>{{hello}}</h1>
+  <span ng-repeat="post in posts">
+    <h2>{{post.title}}</h2><br>
+
+    <small ng-repeat="tag_id in post.tag_ids">
+      {{getTagName(tag_id)}}
+    </small>
+
+    <span>{{post.date}}</span><br>
+    <p>{{post.content}}</p>
+    <hr>
+  </span>
+  {{tags}}
 </div>
