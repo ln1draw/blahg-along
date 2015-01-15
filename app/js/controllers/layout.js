@@ -45,4 +45,10 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
     }
     return ret;
   }
+
+  $scope.newPost = {"title": '', "content": '', "tag_ids": []}
+
+  $scope.submitNewPost = function(){
+    $scope.posts.push($scope.newPost);
+  }
 }]);
