@@ -52,6 +52,56 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
     var postToPush = {};
     postToPush.title = $scope.newPost.title;
     postToPush.content = $scope.newPost.content;
+    postToPush.tag_ids = $scope.newPost.tag_ids;
     $scope.posts.push(postToPush);
   }
+
+  $scope.toggleId = function(id) {
+    var i = $scope.newPost.tag_ids.indexOf(id);
+    // i will equal either the index of the 
+    // item if it's in the array, or -1 if not
+
+    if(i == -1) {
+      $scope.newPost.tag_ids.push(id);
+    } else {
+      $scope.newPost.tag_ids.splice(i, 1);
+    }
+  }
+
+  $scope.tagArray = [];
+
+
+  // Not added in class; added in discussion with students, and from lecture notes
+  $scope.addTag = function(id) {
+    var i = $scope.tagArray.indexOf(id);
+    // i will equal either the index of the 
+    // item if it's in the array, or -1 if not
+
+    if(i == -1) {
+      $scope.tagArray.push(id);
+    } else {
+      $scope.tagArray.splice(i, 1);
+    }
+  }
 }]);
+
+// Not added in class; added in discussion with students, and from lecture notes
+homeControllerModule.filter('selectedTags', function() {
+  return function(posts, tagArray) {
+    return posts.filter(function(post) {
+      for (var i in posts) {
+        if(tagArray.length == 0) {
+          return true;
+        } else {
+          if(tagArray.indexOf(post.tag_ids[i]) != -1){
+            return true;
+          }
+        }
+      }
+      return false;
+    })
+  }
+})
+
+
+
