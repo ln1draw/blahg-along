@@ -52,7 +52,11 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
     var postToPush = {};
     postToPush.title = $scope.newPost.title;
     postToPush.content = $scope.newPost.content;
-    postToPush.tag_ids = $scope.newPost.tag_ids;
+    postToPush.tag_ids = [];
+    for (i = 0; i < $scope.newPost.tag_ids.length; i++){
+      tag = $scope.newPost.tag_ids[i];
+      postToPush.tag_ids.push(tag);
+    }
     $scope.posts.push(postToPush);
   }
 
