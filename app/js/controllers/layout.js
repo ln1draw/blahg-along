@@ -1,9 +1,13 @@
 var homeControllerModule = angular.module('homeControllerModule', []);
 
-homeControllerModule.controller('homeController', ['$scope', '$http', function($scope, $http) {
+homeControllerModule.controller('homeController', ['$scope', '$http', 'apiService', function($scope, $http, apiService) {
   $scope.hello = "Hi";
 
-  $http.get('http://localhost:3000/posts')
+  $scope.posts = [];
+  $scope.tags = [];
+
+  // $http.get('http://localhost:3000/posts')
+  apiService.get('posts')
     .success(function(data){
       $scope.posts = data;
     });
@@ -39,7 +43,8 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
   //     { "id": "doop5", "name": "everything is awesome" }
   //   ]
 
-  $http.get('http://localhost:3000/tags')
+  // $http.get('http://localhost:3000/tags')
+  apiService.get('tags')
     .success(function(data){
       $scope.tags = data;
     });
@@ -71,14 +76,16 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
     $scope.posts.push(postToPush);
 
     // sending to the API
-    $http.post('http://localhost:3000/posts',
-      {
-        post: {
-          title: $scope.newPost.title,
-          content: $scope.newPost.content
-        }
-      }
-    )
+    apiService.postPost($scope.newPost);
+    
+    // $http.post('http://localhost:3000/posts',
+    //   {
+    //     post: {
+    //       title: $scope.newPost.title,
+    //       content: $scope.newPost.content
+    //     }
+    //   }
+    // )
   }
 
   $scope.toggleId = function(id) {
